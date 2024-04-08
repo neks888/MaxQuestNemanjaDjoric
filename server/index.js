@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/full-mern-stack-video");
+mongoose.connect("mongodb://localhost:27017/mern-db");
 
 // Schema for Configurations
 const ConfigSchema = new mongoose.Schema(
@@ -27,10 +27,14 @@ app.get("/api/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   try {
-    await Config.create({
-      storageMethod: req.body.name,
+    const count = await Config.create({
+      storageMethod: req.body.num,
     });
-    res.json({ status: "ok", token: "mockToken123" }); // Mock token
+    await res.json({
+      status: "ok",
+      token: "mockToken123",
+      count: count.storageMethod,
+    }); // Mock token
   } catch (err) {
     res.json({
       status: "error",

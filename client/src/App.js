@@ -13,19 +13,22 @@ function App() {
   }, []);
 
   const handleLogin = () => {
+    setLoginCount((prevState) => prevState + 1);
+    console.log(loginCount);
     fetch("http://localhost:1337/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "nesto",
+        num: loginCount,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem("token", data.token);
         console.log(localStorage.getItem("token"));
+        console.log(loginCount);
       });
   };
 
