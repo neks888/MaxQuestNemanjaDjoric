@@ -25,6 +25,20 @@ app.get("/api/register", async (req, res) => {
   }
 });
 
+app.post("/register", async (req, res) => {
+  try {
+    res.json({ status: "ok", token: "mockToken123" });
+    // Mock token
+  } catch (err) {
+    res.json({
+      status: "error",
+      error: "Something went wrong",
+      error: err.message,
+    });
+  }
+  // Mock login process
+});
+
 app.post("/login", async (req, res) => {
   try {
     const count = await Config.create({
@@ -32,7 +46,7 @@ app.post("/login", async (req, res) => {
     });
     await res.json({
       status: "ok",
-      token: "mockToken123",
+
       count: count.storageMethod,
     }); // Mock token
   } catch (err) {
